@@ -1,15 +1,20 @@
 # basic make file for alice and bob
 
 CC := g++
-CFLAGS := -Wall
+CFLAGS := -Wall -std=c++11 -g
 LIBS := -ltomcrypt -lzmq
-# DEPS := helper.hpp
-DEPS :=
+DEPS := helper.h
+# DEPS :=
 
 all: alice bob
 
-alice: alice.cpp
+alice: alice.cpp $(DEPS)
 	$(CC) $(CFLAGS) -o alice alice.cpp $(DEPS) $(LIBS)
 
-bob: bob.cpp
+bob: bob.cpp $(DEPS)
 	$(CC) $(CFLAGS) -o bob bob.cpp $(DEPS) $(LIBS)
+
+
+.PHONY: clean
+clean: 
+	-rm alice bob
